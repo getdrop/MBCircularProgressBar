@@ -13,6 +13,7 @@
 @property (nonatomic,assign) CGFloat  progressAngle;
 @property (nonatomic,assign) CGFloat  progressRotationAngle;
 @property (nonatomic,assign) CGFloat  value;
+@property (nonatomic,assign) CGFloat  progressValue;
 @property (nonatomic,assign) CGFloat  maxValue;
 @property (nonatomic,assign) NSTimeInterval  animationDuration;
 @property (nonatomic,assign) BOOL  animated;

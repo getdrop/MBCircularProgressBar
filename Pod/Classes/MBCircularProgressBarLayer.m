@@ -13,6 +13,7 @@
 
 @implementation MBCircularProgressBarLayer
 @dynamic value;
+@dynamic progressValue;
 @dynamic maxValue;
 @dynamic valueFontSize;
 @dynamic unitString;
@@ -94,8 +95,8 @@
     CGMutablePathRef arc = CGPathCreateMutable();
     
     CGFloat startAngle    = -(self.progressAngle/100.f)*M_PI-((-self.progressRotationAngle/100.f)*2.f+0.5)*M_PI;
-    CGFloat progressValue = MIN(self.value/self.maxValue, 1.0);
-    CGFloat progressAngle = (self.progressAngle/100.f)*M_PI-((-self.progressRotationAngle/100.f)*2.f+0.5)*M_PI-(2.f*M_PI)*(self.progressAngle/100.f)*(100.f-100.f*progressValue)/100.f;
+    CGFloat clampedValue  = MIN(self.progressValue/self.maxValue, 1.0);
+    CGFloat progressAngle = (self.progressAngle/100.f)*M_PI-((-self.progressRotationAngle/100.f)*2.f+0.5)*M_PI-(2.f*M_PI)*(self.progressAngle/100.f)*(100.f-100.f*clampedValue)/100.f;
   
     CGPathAddArc(arc, NULL,
                rectSize.width/2, rectSize.height/2,
@@ -167,7 +168,7 @@
 #pragma mark - Override methods to support animations
 
 + (BOOL)needsDisplayForKey:(NSString *)key {
-    if ([key isEqualToString:@"value"]) {
+    if ([key isEqualToString:@"value"] || [key isEqualToString:@"progressValue"]) {
         return YES;
     }
     return [super needsDisplayForKey:key];
@@ -175,11 +176,12 @@
 
 - (id<CAAction>)actionForKey:(NSString *)event{
     if ([self presentationLayer] != nil) {
-        if ([event isEqualToString:@"value"] && self.animated) {
+      BOOL isActionKey = [event isEqualToString:@"value"] || [event isEqualToString:@"progressValue"];
+        if (isActionKey && self.animated) {
             CABasicAnimation *anim = [CABasicAnimation
-                                      animationWithKeyPath:@"value"];
+                                      animationWithKeyPath:event];
             anim.fromValue = [[self presentationLayer]
-                              valueForKey:@"value"];
+                              valueForKey:event];
             anim.duration = self.animationDuration;
             return anim;
         }

@@ -14,8 +14,11 @@ IB_DESIGNABLE
 /* Should show value string */
 @property (nonatomic,assign) IBInspectable BOOL      showValueString;
 
-/* The value of the progress bar  */
+/* The value of the true text value  */
 @property (nonatomic,assign) IBInspectable CGFloat   value;
+
+/* The displayed value of the progress bar  */
+@property (nonatomic,assign) IBInspectable CGFloat   progressValue;
 
 /* The maximum possible value, used to calculate the progress (value/maxValue)	[0,∞) */
 @property (nonatomic,assign) IBInspectable CGFloat   maxValue;
@@ -77,4 +80,6 @@ IB_DESIGNABLE
 /* Set the value of the progress bar with animation */
 -(void)setValue:(CGFloat)value animateWithDuration:(NSTimeInterval)duration;
 
+/* Set the value of the value and progressValue with animation */
+-(void)setValue:(CGFloat)value progressValue:(CGFloat)progressValue animateWithDuration:(NSTimeInterval)duration;
 @end
