@@ -201,7 +201,9 @@
 				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
 				87AF74ADC6F2C6FB790B57D413F3346C /* Targets Support Files */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		87AF74ADC6F2C6FB790B57D413F3346C /* Targets Support Files */ = {
 			isa = PBXGroup;

@@ -282,10 +282,7 @@
 }
 
 -(void)setValue:(CGFloat)value animateWithDuration:(NSTimeInterval)duration{
-  [self progressLayer].animationDuration  = duration;
-  [self progressLayer].animated           = YES;
-  [self progressLayer].value              = value;
-  [self progressLayer].progressValue      = value;
+  [self setValue:value progressValue:value animateWithDuration:duration];
 }
 
 -(void)setValue:(CGFloat)value progressValue:(CGFloat)progressValue animateWithDuration:(NSTimeInterval)duration{
@@ -293,6 +290,9 @@
   [self progressLayer].animated           = YES;
   [self progressLayer].value              = value;
   [self progressLayer].progressValue      = progressValue;
+  
+  NSString *format = [NSString stringWithFormat:@"%%.%df", self.decimalPlaces];
+  self.accessibilityValue = [NSString stringWithFormat: format, value];
 }
 
 @end
